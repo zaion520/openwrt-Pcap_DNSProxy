@@ -26,7 +26,7 @@ Pcap_DNSProxy for OpenWrt
    cd OpenWrt-SDK-ar71xx-*
    # 获取 Makefile
    git clone https://github.com/wongsyrone/openwrt-Pcap_DNSProxy.git package/pcap-dnsproxy
-   # 选择要编译的包 Network -> Pcap_DNSProxy
+   # 选择要编译的包 Network -> pcap-dnsproxy
    # 可选择是否编译 LibSodium 支持以及修改默认监听端口，注意不可使用 53 作为端口
    make menuconfig
    # 开始编译
@@ -40,7 +40,7 @@ Pcap_DNSProxy for OpenWrt
 配置
 ---
 
- - Pcap_DNSProxy 主配置文件目录: `/etc/pcap-dnsproxy` 配置方法参见原项目文档  
+ - Pcap_DNSProxy 主配置文件目录: `/etc/pcap-dnsproxy` 配置方法参见原[项目文档][2]  
 
  - Pcap_DNSProxy OpenWrt配置文件: `/etc/config/pcap-dnsproxy`  目前仅用于控制使能  
 
@@ -48,4 +48,5 @@ Pcap_DNSProxy for OpenWrt
 
 
   [1]: https://github.com/chengr28/Pcap_DNSProxy
-  [S]: http://wiki.openwrt.org/doc/howto/obtain.firmware.sdk 
+  [2]: https://github.com/chengr28/Pcap_DNSProxy/tree/master/Documents
+  [S]: http://wiki.openwrt.org/doc/howto/obtain.firmware.sdk
