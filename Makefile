@@ -8,7 +8,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcap-dnsproxy
 PKG_VERSION:=0.4.4.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/chengr28/Pcap_DNSProxy.git
@@ -100,11 +100,11 @@ define Package/pcap-dnsproxy/install
 	$(INSTALL_DIR) $(1)/etc/pcap-dnsproxy
 	$(SED) 's,Listen Port = 53,Listen Port = $(CONFIG_PCAP_DNSPROXY_LISTENPORT),g'                          $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini
 	$(SED) 's,Log Maximum Size = 8MB,Log Maximum Size = 50KB,g'                                             $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini $(1)/etc/pcap-dnsproxy/Config.conf
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/Source/ExampleConfig/Hosts.ini $(1)/etc/pcap-dnsproxy/Hosts.conf
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/Source/ExampleConfig/IPFilter.ini $(1)/etc/pcap-dnsproxy/IPFilter.conf
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/Source/ExampleConfig/Routing.txt $(1)/etc/pcap-dnsproxy/Routing.txt
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/Source/ExampleConfig/WhiteList.txt $(1)/etc/pcap-dnsproxy/WhiteList.txt
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini $(1)/etc/pcap-dnsproxy/Config.conf
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/Hosts.ini $(1)/etc/pcap-dnsproxy/Hosts.conf
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/IPFilter.ini $(1)/etc/pcap-dnsproxy/IPFilter.conf
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/Routing.txt $(1)/etc/pcap-dnsproxy/Routing.txt
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/WhiteList.txt $(1)/etc/pcap-dnsproxy/WhiteList.txt
 endef
 
 

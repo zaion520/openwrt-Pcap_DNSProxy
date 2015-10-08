@@ -9,6 +9,8 @@ SERVICE_USE_PID=1
 SERVICE_WRITE_PID=1
 SERVICE_DAEMONIZE=1
 
+CONFDIR="/etc/pcap-dnsproxy"
+
 PIDFILE="/var/run/Pcap_DNSProxy.pid"
 
 config_load "pcap-dnsproxy"
@@ -25,7 +27,7 @@ config_foreach parse_pcap_dnsproxy 'pcap-dnsproxy'
 
 start() {
 	if [ "1" = "$ENABLED" ] || [ "on" = "$ENABLED" ] || [ "true" = "$ENABLED" ]; then
-		service_start /usr/sbin/Pcap_DNSProxy -c /etc/pcap-dnsproxy --disable-daemon
+		service_start /usr/sbin/Pcap_DNSProxy -c $CONFDIR --disable-daemon
 		RESULT=$?
 		[ $RESULT -eq 0 ] && {
 			echo "Pcap_DNSProxy started successfully"

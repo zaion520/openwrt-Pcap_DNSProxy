@@ -25,12 +25,12 @@ Pcap_DNSProxy for OpenWrt
    tar xjf OpenWrt-SDK-ar71xx-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2.tar.bz2
    cd OpenWrt-SDK-ar71xx-*
    # 获取 Makefile
-   git clone https://github.com/wongsyrone/openwrt-Pcap_DNSProxy.git package/Pcap_DNSProxy
+   git clone https://github.com/wongsyrone/openwrt-Pcap_DNSProxy.git package/pcap-dnsproxy
    # 选择要编译的包 Network -> Pcap_DNSProxy
    # 可选择是否编译 LibSodium 支持以及修改默认监听端口，注意不可使用 53 作为端口
    make menuconfig
    # 开始编译
-   make package/Pcap_DNSProxy/compile V=99
+   make package/pcap-dnsproxy/compile V=99
    ```
 
  - 从 OpenWrt 的代码树编译
