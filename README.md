@@ -20,7 +20,7 @@ Pcap_DNSProxy for OpenWrt
  - 从 OpenWrt 的 [SDK][S] 编译
 
    ```bash
-   # 以 ar71xx 平台为例，此处文件名为示例，以实际为准
+   # 以 ar71xx 平台为例，此处文件名为示例，仅供参考，请以实际文件名为准
    # 有对应平台的 SDK 即可编译软件包，不仅限于 ar71xx
    tar xjf OpenWrt-SDK-ar71xx-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2.tar.bz2
    cd OpenWrt-SDK-ar71xx-*
@@ -36,6 +36,13 @@ Pcap_DNSProxy for OpenWrt
  - 从 OpenWrt 的代码树编译
 
  也可将本项目文件夹命名为 `pcap-dnsproxy` 直接放置于 OpenWrt 代码树的 `package` 文件夹下，之后按照编译的正常步骤进行，最后可在 bin 目录中找到编译好的软件包。
+
+注意
+---
+
+ 1. 如果 SDK 的文件名注明 GCC 版本为 4.8，由于该版本的 GCC 对 STL 的正则表达式支持不完整，会导致有些 Hosts 那边的正则表达式用不了，如果确实需要使用正则表达式，请使用 GCC 4.9 或以上版本编译。  
+ 2. 如果不能获取合适的 SDK，则换用其他编译方法。  
+
 
 配置
 ---
