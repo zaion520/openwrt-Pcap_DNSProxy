@@ -53,6 +53,8 @@ Pcap_DNSProxy for OpenWrt
    # 首先选择目标平台以及设备型号
    # 接下来选择要编译的包 Network -> pcap-dnsproxy
    # 可选择是否编译 LibSodium 支持以及修改默认监听端口，注意不可使用 53 作为端口
+   ./scripts/feeds update -a
+   ./scripts/feeds install -a
    make menuconfig
    # 如果只想编译 pcap-dnsproxy 使用
    make package/pcap-dnsproxy/{prepare,compile} V=99
@@ -60,11 +62,13 @@ Pcap_DNSProxy for OpenWrt
    make V=99
    ```
 
+ 如果下载的 SDK 不能正常编译 pcap-dnsproxy，需要手动编译 SDK，首先在配置界面设置好目标平台和设备型号，接下来选择 Build the OpenWrt SDK，其他的设置都保持默认即可，最后运行 `make V=99`
+
 注意
 ---
 
  1. 如果 SDK 的文件名注明 GCC 版本为 4.8，由于该版本的 GCC 对 STL 的正则表达式支持不完整，会导致有些 Hosts 那边的正则表达式用不了，如果确实需要使用正则表达式，请使用 GCC 4.9 或以上版本编译。  
- 2. 如果不能获取合适的 SDK，则换用其他编译方法。  
+ 2. 如果下载的 SDK 不能编译本项目，首先尝试手动编译 SDK，一般都可以解决问题了；否则尝试从 OpenWrt 的代码树编译。  
 
 配置
 ---
