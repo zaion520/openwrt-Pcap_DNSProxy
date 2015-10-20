@@ -5,12 +5,16 @@
 
 START=95
 
+EXTRA_COMMANDS=flush
+EXTRA_HELP="	flush	Flush DNS cache of Pcap_DNSProxy and system (dnsmasq's cache in OP)"
+
 SERVICE_USE_PID=1
 SERVICE_WRITE_PID=1
 SERVICE_DAEMONIZE=1
 
-CONFDIR="/etc/pcap-dnsproxy"
+PROG="/usr/sbin/Pcap_DNSProxy"
 
+CONFDIR="/etc/pcap-dnsproxy"
 PIDFILE="/var/run/Pcap_DNSProxy.pid"
 
 config_load "pcap-dnsproxy"
@@ -27,7 +31,7 @@ config_foreach parse_pcap_dnsproxy 'pcap-dnsproxy'
 
 start() {
 	if [ "1" = "$ENABLED" ] || [ "on" = "$ENABLED" ] || [ "true" = "$ENABLED" ]; then
-		service_start /usr/sbin/Pcap_DNSProxy -c $CONFDIR --disable-daemon
+		service_start $PROG -c $CONFDIR --disable-daemon
 		RESULT=$?
 		[ $RESULT -eq 0 ] && {
 			echo "Pcap_DNSProxy started successfully"
@@ -45,7 +49,7 @@ stop() {
 	# If you cant stop, use 'killall' instead.
 	# e.g. killall -SIGTERM Pcap_DNSProxy
 	if [ -f $PIDFILE ]; then
-		service_stop /usr/sbin/Pcap_DNSProxy
+		service_stop $PROG
 		RESULT=$?
 		[ $RESULT -eq 0 ] && {
 			echo "Pcap_DNSProxy terminated successfully"
@@ -60,4 +64,8 @@ restart() {
 	stop
 	sleep 2s
 	start
+}
+
+flush() {
+	$PROG --flush-dns
 }

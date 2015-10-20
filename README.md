@@ -16,6 +16,8 @@ Pcap_DNSProxy for OpenWrt
 
  可执行文件 `KeyPairGenerator` 和 `Pcap_DNSProxy`  
 
+ 可以使用 `/etc/init.d/pcap-dnsproxy flush` 来清除 DNS 缓存。  
+
 编译
 ---
 
