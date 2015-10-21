@@ -8,7 +8,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcap-dnsproxy
 PKG_VERSION:=0.4.4.2
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/chengr28/Pcap_DNSProxy.git
@@ -31,14 +31,20 @@ TARGET_CFLAGS += $(FPIC)
 CMAKE_OPTIONS += \
 	-DPLATFORM_OPENWRT=ON \
 	$(if $(CONFIG_PACKAGE_pcap-dnsproxy_libsodium),-DENABLE_LIBSODIUM=ON,-DENABLE_LIBSODIUM=OFF) \
-	-DENABLE_PCAP=ON
+	$(if $(CONFIG_PACKAGE_pcap-dnsproxy_libpcap),-DENABLE_PCAP=ON,-DENABLE_PCAP=OFF)
 
 # Port 53 leads to dnsmasq startup failure.
 define Package/pcap-dnsproxy/config
 	if PACKAGE_pcap-dnsproxy
 	config PACKAGE_pcap-dnsproxy_libsodium
-		bool "Build with libsodium support."
+		bool "Build with libsodium support.(Recommanded)"
 		default y
+	config PACKAGE_pcap-dnsproxy_libpcap
+		bool "Build with libpcap support.(Strongly recommanded)"
+		default y
+	config PACKAGE_pcap-dnsproxy_KeyPairGenerator
+		bool "Ship KeyPairGenerator."
+		default n
 	config PCAP_DNSPROXY_LISTENPORT
 		int "Change default Listen Port, can NOT be 53"
 		default 1053
@@ -55,7 +61,8 @@ define Package/pcap-dnsproxy
 	CATEGORY:=Network
 	TITLE:=A local DNS server based on LibPcap
 	URL:=https://github.com/chengr28/Pcap_DNSProxy
-	DEPENDS:=+libpthread +libstdcpp +libpcap \
+	DEPENDS:=+libpthread +libstdcpp \
+		+PACKAGE_pcap-dnsproxy_libpcap:libpcap \
 		+PACKAGE_pcap-dnsproxy_libsodium:libsodium \
 		@GCC_VERSION_4_6:BROKEN
 endef
@@ -92,15 +99,15 @@ endef
 
 define Package/pcap-dnsproxy/install
 	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/KeyPairGenerator $(1)/usr/sbin/KeyPairGenerator
+	$(if $(CONFIG_PACKAGE_pcap-dnsproxy_KeyPairGenerator),$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/KeyPairGenerator $(1)/usr/sbin/KeyPairGenerator)
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/Pcap_DNSProxy $(1)/usr/sbin/Pcap_DNSProxy
 	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_DATA) ./files/pcap-dnsproxy.config $(1)/etc/config/pcap-dnsproxy
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/pcap-dnsproxy.init $(1)/etc/init.d/pcap-dnsproxy
 	$(INSTALL_DIR) $(1)/etc/pcap-dnsproxy
-	$(SED) 's,Listen Port = 53,Listen Port = $(CONFIG_PCAP_DNSPROXY_LISTENPORT),g'                          $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini
-	$(SED) 's,Log Maximum Size = 8MB,Log Maximum Size = 50KB,g'                                             $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini
+	$(SED) 's,Listen Port = 53,Listen Port = $(CONFIG_PCAP_DNSPROXY_LISTENPORT),g'                  $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini
+	$(SED) 's,Log Maximum Size = 8MB,Log Maximum Size = 50KB,g'                                     $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini $(1)/etc/pcap-dnsproxy/Config.conf
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/Hosts.ini $(1)/etc/pcap-dnsproxy/Hosts.conf
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/IPFilter.ini $(1)/etc/pcap-dnsproxy/IPFilter.conf

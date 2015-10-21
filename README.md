@@ -12,11 +12,15 @@ Pcap_DNSProxy for OpenWrt
 特性
 ---
 
- 参见原项目说明  
+ 主要参见原项目说明  
 
- 可执行文件 `KeyPairGenerator` 和 `Pcap_DNSProxy`  
+ - 主要可执行文件 `Pcap_DNSProxy`，可选是否附带 `KeyPairGenerator`。  
 
- 可以使用 `/etc/init.d/pcap-dnsproxy flush` 来清除 DNS 缓存。  
+ - 可选 LibSodium 和 LibPcap 依赖，其中 LibPcap 强烈建议勾选，LibSodium 根据原项目说明自行决定是否编译。  
+
+ - 监听端口预置为 1053 ，可自行修改，注意不可使用 53 作为端口，会与 dnsmasq 相冲突导致 LAN 口不能分配 IP 等。  
+
+ - 可以使用 `/etc/init.d/pcap-dnsproxy flush` 来清除本程序和 OpenWrt 系统的 DNS 缓存，其余的 `/etc/init.d/pcap-dnsproxy {start|stop|enable|disable}` 与其余 OpenWrt 软件包的用法无异。  
 
 编译
 ---
@@ -31,8 +35,7 @@ Pcap_DNSProxy for OpenWrt
    cd OpenWrt-SDK-ar71xx-*
    # 获取 Makefile
    git clone https://github.com/wongsyrone/openwrt-Pcap_DNSProxy.git package/pcap-dnsproxy
-   # 选择要编译的包 Network -> pcap-dnsproxy
-   # 可选择是否编译 LibSodium 支持以及修改默认监听端口，注意不可使用 53 作为端口
+   # 选择要编译的包 Network -> pcap-dnsproxy 并进行个人定制，或者保持默认
    make menuconfig
    # 开始编译
    make package/pcap-dnsproxy/compile V=99
@@ -53,8 +56,7 @@ Pcap_DNSProxy for OpenWrt
    # 获取 Makefile
    git clone https://github.com/wongsyrone/openwrt-Pcap_DNSProxy.git package/pcap-dnsproxy
    # 首先选择目标平台以及设备型号
-   # 接下来选择要编译的包 Network -> pcap-dnsproxy
-   # 可选择是否编译 LibSodium 支持以及修改默认监听端口，注意不可使用 53 作为端口
+   # 接下来选择要编译的包 Network -> pcap-dnsproxy 并进行个人定制，或者保持默认
    ./scripts/feeds update -a
    ./scripts/feeds install -a
    make menuconfig
@@ -69,8 +71,9 @@ Pcap_DNSProxy for OpenWrt
 注意
 ---
 
- 1. 如果 SDK 的文件名注明 GCC 版本为 4.8，由于该版本的 GCC 对 STL 的正则表达式支持不完整，会导致有些 Hosts 那边的正则表达式用不了，如果确实需要使用正则表达式，请使用 GCC 4.9 或以上版本编译。  
- 2. 如果下载的 SDK 不能编译本项目，首先尝试手动编译 SDK，一般都可以解决问题了；否则尝试从 OpenWrt 的代码树编译。  
+ 1. 监听端口绝对不能是 53，会与 OpenWrt 的 dnsmasq 相冲突。  
+ 2. 如果 SDK 的文件名注明 GCC 版本为 4.8，由于该版本的 GCC 对 STL 的正则表达式支持不完整，会导致有些 Hosts 那边的正则表达式用不了，如果确实需要使用正则表达式，请使用 GCC 4.9 或以上版本编译。  
+ 3. 如果下载的 SDK 不能编译本项目，首先尝试手动编译 SDK，一般都可以解决问题了；否则尝试从 OpenWrt 的代码树编译。  
 
 配置
 ---
