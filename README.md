@@ -33,12 +33,20 @@ Pcap_DNSProxy for OpenWrt
    tar xjf OpenWrt-SDK-ar71xx-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2.tar.bz2
    # 进入 SDK 根目录
    cd OpenWrt-SDK-ar71xx-*
+   # 首先验证 SDK 是否需要 ccache
+   cat .config | grep CONFIG_CCACHE
+   # 如果返回结果为 "y"，则需要使用系统软件包管理器，如 yum、apt-get，安装 ccache
+   # 接下来更新 feeds，因为编译需要 libsodium 和 libpcap
+   ./scripts/feeds update -a
+   ./scripts/feeds install -a
    # 获取 Makefile
    git clone https://github.com/wongsyrone/openwrt-Pcap_DNSProxy.git package/pcap-dnsproxy
    # 选择要编译的包 Network -> pcap-dnsproxy 并进行个人定制，或者保持默认
+   # 这时根据提供的选项确认依赖已经被选中
    make menuconfig
    # 开始编译
    make package/pcap-dnsproxy/compile V=99
+   # 编译结束之后从 bin 文件夹复制依赖库以及本程序的 ipk 文件到设备中，使用 opkg 进行安装
    ```
 
  - 从 OpenWrt 的代码树编译
@@ -53,12 +61,13 @@ Pcap_DNSProxy for OpenWrt
    git clone git://git.openwrt.org/15.05/openwrt.git
    # 进入代码树根目录
    cd openwrt
+   # 接下来更新 feeds，因为编译需要 libsodium 和 libpcap
+   ./scripts/feeds update -a
+   ./scripts/feeds install -a
    # 获取 Makefile
    git clone https://github.com/wongsyrone/openwrt-Pcap_DNSProxy.git package/pcap-dnsproxy
    # 首先选择目标平台以及设备型号
    # 接下来选择要编译的包 Network -> pcap-dnsproxy 并进行个人定制，或者保持默认
-   ./scripts/feeds update -a
-   ./scripts/feeds install -a
    make menuconfig
    # 如果只想编译 pcap-dnsproxy 使用
    make package/pcap-dnsproxy/{prepare,compile} V=99
@@ -72,8 +81,9 @@ Pcap_DNSProxy for OpenWrt
 ---
 
  1. 监听端口绝对不能是 53，会与 OpenWrt 的 dnsmasq 相冲突。  
- 2. 如果 SDK 的文件名注明 GCC 版本为 4.8，由于该版本的 GCC 对 STL 的正则表达式支持不完整，会导致有些 Hosts 那边的正则表达式用不了，如果确实需要使用正则表达式，请使用 GCC 4.9 或以上版本编译。  
- 3. 如果下载的 SDK 不能编译本项目，首先尝试手动编译 SDK，一般都可以解决问题了；否则尝试从 OpenWrt 的代码树编译。  
+ 2. 使用 SDK 编译之前验证 SDK 是否需要 ccache。  
+ 3. 如果 SDK 的文件名注明 GCC 版本为 4.8，由于该版本的 GCC 对 STL 的正则表达式支持不完整，会导致有些 Hosts 那边的正则表达式用不了，如果确实需要使用正则表达式，请使用 GCC 4.9 或以上版本编译。  
+ 4. 如果下载的 SDK 不能编译本项目，首先尝试手动编译 SDK，一般都可以解决问题了；否则尝试从 OpenWrt 的代码树编译。  
 
 配置
 ---
