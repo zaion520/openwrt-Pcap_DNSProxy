@@ -1,13 +1,13 @@
 Pcap_DNSProxy for OpenWrt
 ===
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wongsyrone/openwrt-Pcap_DNSProxy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wongsyrone/openwrt-Pcap_DNSProxy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)[![Download Pcap_DNSProxy for OpenWrt Dist](https://img.shields.io/sourceforge/dt/pcap-dnsproxy-for-openwrt-dist.svg)](https://sourceforge.net/projects/pcap-dnsproxy-for-openwrt-dist/files/latest/download)
 简介
 ---
 
  本项目是 [Pcap_DNSProxy][1] 运行在 OpenWrt 上的软件包  
- 当前版本: 0.4.4.2  
+ 当前版本: 0.4.4.2-3  
+ [预编译 IPK 下载][D]  
 
 特性
 ---
@@ -104,4 +104,5 @@ Pcap_DNSProxy for OpenWrt
 
   [1]: https://github.com/chengr28/Pcap_DNSProxy
   [2]: https://github.com/chengr28/Pcap_DNSProxy/tree/master/Documents
+  [D]: https://sourceforge.net/projects/pcap-dnsproxy-for-openwrt-dist/files/
   [S]: http://wiki.openwrt.org/doc/howto/obtain.firmware.sdk
