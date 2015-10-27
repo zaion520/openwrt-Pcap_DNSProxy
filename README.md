@@ -6,7 +6,7 @@ Pcap_DNSProxy for OpenWrt
 ---
 
  本项目是 [Pcap_DNSProxy][1] 运行在 OpenWrt 上的软件包  
- 当前版本: 0.4.4.2-3  
+ 当前版本: 0.4.4.3-1  
  [预编译 IPK 下载][D]  
 
 特性
@@ -20,7 +20,7 @@ Pcap_DNSProxy for OpenWrt
 
  - 监听端口预置为 1053 ，可自行修改，注意不可使用 53 作为端口，会与 dnsmasq 相冲突导致 LAN 口不能分配 IP 等。  
 
- - 可以使用 `/etc/init.d/pcap-dnsproxy flush` 来清除本程序和 OpenWrt 系统的 DNS 缓存，其余的 `/etc/init.d/pcap-dnsproxy {start|stop|enable|disable}` 与其余 OpenWrt 软件包的用法无异。  
+ - 可以使用 `/etc/init.d/pcap-dnsproxy flush` 来清除本程序和 OpenWrt 系统的 DNS 缓存，使用 `/etc/init.d/pcap-dnsproxy libver` 查询链接的库版本，其余的 `/etc/init.d/pcap-dnsproxy {start|stop|enable|disable}` 与其他 OpenWrt 软件包的用法无异。  
 
 编译
 ---
@@ -81,9 +81,10 @@ Pcap_DNSProxy for OpenWrt
 ---
 
  1. 监听端口绝对不能是 53，会与 OpenWrt 的 dnsmasq 相冲突。  
- 2. 使用 SDK 编译之前验证 SDK 是否需要 ccache。  
- 3. 如果 SDK 的文件名注明 GCC 版本为 4.8，由于该版本的 GCC 对 STL 的正则表达式支持不完整，会导致有些 Hosts 那边的正则表达式用不了，如果确实需要使用正则表达式，请使用 GCC 4.9 或以上版本编译。  
- 4. 如果下载的 SDK 不能编译本项目，首先尝试手动编译 SDK，一般都可以解决问题了；否则尝试从 OpenWrt 的代码树编译。  
+ 2. 由于目前官方 SDK 默认使用 GCC 4.8，故预编译软件包存在有些 Hosts 那边的正则表达式不能使用的问题，请周知。  
+ 3. 使用 SDK 编译之前验证 SDK 是否需要 ccache。  
+ 4. 如果 SDK 的文件名注明 GCC 版本为 4.8，由于该版本的 GCC 对 STL 的正则表达式支持不完整，会导致有些 Hosts 那边的正则表达式用不了，如果确实需要使用正则表达式，请使用 GCC 4.9 或以上版本编译。  
+ 5. 如果下载的 SDK 不能编译本项目，首先尝试手动编译 SDK，一般都可以解决问题了；否则尝试从 OpenWrt 的代码树编译。  
 
 配置
 ---
