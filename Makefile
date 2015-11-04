@@ -8,7 +8,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcap-dnsproxy
 PKG_VERSION:=0.4.4.4
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/chengr28/Pcap_DNSProxy.git
@@ -37,10 +37,10 @@ CMAKE_OPTIONS += \
 define Package/pcap-dnsproxy/config
 	if PACKAGE_pcap-dnsproxy
 	config PACKAGE_pcap-dnsproxy_libsodium
-		bool "Build with libsodium support.(Recommanded)"
+		bool "Build with libsodium support.(Recommended)"
 		default y
 	config PACKAGE_pcap-dnsproxy_libpcap
-		bool "Build with libpcap support.(Strongly recommanded)"
+		bool "Build with libpcap support.(Strongly recommended)"
 		default y
 	config PACKAGE_pcap-dnsproxy_KeyPairGenerator
 		bool "Ship KeyPairGenerator."
@@ -106,7 +106,8 @@ define Package/pcap-dnsproxy/install
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/pcap-dnsproxy.init $(1)/etc/init.d/pcap-dnsproxy
 	$(INSTALL_DIR) $(1)/etc/pcap-dnsproxy
-	$(SED) 's,\r,,g'                                                                  $(PKG_BUILD_DIR)/Source/ExampleConfig/*
+	$(SED) 's,^\xEF\xBB\xBF,,g'                                                       $(PKG_BUILD_DIR)/Source/ExampleConfig/*
+	$(SED) 's,\x0D,,g'                                                                $(PKG_BUILD_DIR)/Source/ExampleConfig/*
 	$(SED) 's,Listen Port = 53,Listen Port = $(CONFIG_PCAP_DNSPROXY_LISTENPORT),g'    $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini
 	$(SED) 's,Log Maximum Size = 8MB,Log Maximum Size = 50KB,g'                       $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/ExampleConfig/Config.ini $(1)/etc/pcap-dnsproxy/Config.conf
