@@ -6,7 +6,7 @@ Pcap_DNSProxy for OpenWrt
 ---
 
  本项目是 [Pcap_DNSProxy][1] 运行在 OpenWrt 上的软件包  
- 当前版本: 0.4.4.4-2  
+ 当前版本: 0.4.4.4-3  
  [预编译 IPK 下载][D]  
 
 特性
@@ -85,6 +85,7 @@ Pcap_DNSProxy for OpenWrt
  3. 使用 SDK 编译之前验证 SDK 是否需要 ccache。  
  4. 如果 SDK 的文件名注明 GCC 版本为 4.8，由于该版本的 GCC 对 STL 的正则表达式支持不完整，会导致有些 Hosts 那边的正则表达式用不了，如果确实需要使用正则表达式，请使用 GCC 4.9 或以上版本编译。  
  5. 如果下载的 SDK 不能编译本项目，首先尝试手动编译 SDK，一般都可以解决问题了；否则尝试从 OpenWrt 的代码树编译。  
+ 6. 自行编译可以尝试高级编译选项，详情参照Makefile内容。  
 
 配置
 ---

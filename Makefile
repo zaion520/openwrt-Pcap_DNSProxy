@@ -8,12 +8,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcap-dnsproxy
 PKG_VERSION:=0.4.4.4
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/chengr28/Pcap_DNSProxy.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=d1fc683130a54890e51f8027f1b31953da4c88e4
+PKG_SOURCE_VERSION:=9e73c3460f4a711318205619ef7c8fe72dab1ef9
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 CMAKE_INSTALL:=1
 
@@ -45,6 +45,9 @@ define Package/pcap-dnsproxy/config
 	config PACKAGE_pcap-dnsproxy_KeyPairGenerator
 		bool "Ship KeyPairGenerator."
 		default n
+	config PACKAGE_pcap-dnsproxy_advancedoptions
+		bool "Use advanced compile options, see Makefile for details."
+		default n
 	config PCAP_DNSPROXY_LISTENPORT
 		int "Change default Listen Port, can NOT be 53"
 		default 1053
@@ -66,6 +69,16 @@ define Package/pcap-dnsproxy
 		+PACKAGE_pcap-dnsproxy_libsodium:libsodium \
 		@GCC_VERSION_4_6:BROKEN
 endef
+
+# Some advanced compile flags for expert
+ifneq ($(CONFIG_PACKAGE_pcap-dnsproxy_advancedoptions),)
+	# Try to reduce binary size
+	TARGET_CFLAGS += -ffunction-sections -fdata-sections
+	TARGET_LDFLAGS += -Wl,--gc-sections
+	# Use Link time optimization
+	TARGET_CFLAGS += -flto
+	TARGET_LDFLAGS += -flto
+endif
 
 define Package/pcap-dnsproxy/conffiles
 /etc/pcap-dnsproxy/Config.conf

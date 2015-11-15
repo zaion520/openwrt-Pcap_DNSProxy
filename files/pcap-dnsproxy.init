@@ -38,7 +38,7 @@ start() {
 			echo "Pcap_DNSProxy started successfully"
 		}
 	else
-		echo "Pcap_DNSProxy is disabled"
+		echo "Pcap_DNSProxy is disabled, please check /etc/config/pcap-dnsproxy for more info"
 	fi
 }
 
