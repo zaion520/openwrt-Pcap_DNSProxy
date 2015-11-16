@@ -77,7 +77,7 @@ ifneq ($(CONFIG_PACKAGE_pcap-dnsproxy_advancedoptions),)
 	TARGET_LDFLAGS += -Wl,--gc-sections
 	# Use Link time optimization
 	TARGET_CFLAGS += -flto
-	TARGET_LDFLAGS += -flto
+	TARGET_LDFLAGS += -Wl,-flto
 endif
 
 define Package/pcap-dnsproxy/conffiles
