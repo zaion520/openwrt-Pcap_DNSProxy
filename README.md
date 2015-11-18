@@ -6,7 +6,7 @@ Pcap_DNSProxy for OpenWrt
 ---
 
  本项目是 [Pcap_DNSProxy][1] 运行在 OpenWrt 上的软件包  
- 当前版本: 0.4.4.4-3  
+ 当前版本: 0.4.4.5-1  
  [预编译 IPK 下载][D]  
 
 特性
@@ -90,9 +90,21 @@ Pcap_DNSProxy for OpenWrt
 配置
 ---
 
+ - Pcap_DNSProxy OpenWrt配置文件: `/etc/config/pcap-dnsproxy`  目前仅用于控制使能  
+
+ 安装完软件包之后修改上述配置文件的 enabled 值为 1 之后才可以运行主程序，该项用来防止未修改配置文件的情况下程序开机自启。  
+
  - Pcap_DNSProxy 主配置文件目录: `/etc/pcap-dnsproxy` 配置方法参见原[项目文档][2]  
 
- - Pcap_DNSProxy OpenWrt配置文件: `/etc/config/pcap-dnsproxy`  目前仅用于控制使能  
+ 在 OpenWrt 下的应用主要是作为 dnsmasq 的上游 DNS 解析器，主要承担被污染域名或者绝大部分国外域名的解析。修改 dnsmasq 的配置文件添加：
+
+ ```
+ no-resolv                 /* 此处防止获取到ISP DNS从而干扰解析 */
+ server=192.168.1.1#1053   /* 此处为网关IP地址，尽量不要使用 127.0.0.1；后面是监听端口 */
+ all-servers               /* 如果配置了多个上游DNS并且确保均不受污染，可开启此项加速解析 */
+ ```
+
+ 对于国内域名解析，不推荐使用本程序，建议搭配 [dnsmasq-china-list][3] 项目使用可获得较好效果。  
 
 反馈
 ---
@@ -106,5 +118,6 @@ Pcap_DNSProxy for OpenWrt
 
   [1]: https://github.com/chengr28/Pcap_DNSProxy
   [2]: https://github.com/chengr28/Pcap_DNSProxy/tree/master/Documents
+  [3]: https://github.com/felixonmars/dnsmasq-china-list
   [D]: https://sourceforge.net/projects/pcap-dnsproxy-for-openwrt-dist/files/
   [S]: http://wiki.openwrt.org/doc/howto/obtain.firmware.sdk
