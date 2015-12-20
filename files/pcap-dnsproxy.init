@@ -11,8 +11,8 @@ EXTRA_HELP="	flush	Flush DNS cache of Pcap_DNSProxy and system (dnsmasq's cache 
 
 SERVICE_DAEMONIZE=1
 
-PROG="/usr/sbin/Pcap_DNSProxy"
-CONFDIR="/etc/pcap-dnsproxy"
+PROG=/usr/sbin/Pcap_DNSProxy
+CONFDIR=/etc/pcap-dnsproxy
 
 config_load "pcap-dnsproxy"
 

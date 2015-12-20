@@ -6,7 +6,7 @@ Pcap_DNSProxy for OpenWrt
 ---
 
  本项目是 [Pcap_DNSProxy][1] 运行在 OpenWrt 上的软件包  
- 当前版本: 0.4.4.5-1  
+ 当前版本: 0.4.4.6-1  
  [预编译 IPK 下载][D]  
 
 特性
@@ -96,12 +96,16 @@ Pcap_DNSProxy for OpenWrt
 
  - Pcap_DNSProxy 主配置文件目录: `/etc/pcap-dnsproxy` 配置方法参见原[项目文档][2]  
 
- 在 OpenWrt 下的应用主要是作为 dnsmasq 的上游 DNS 解析器，主要承担被污染域名或者绝大部分国外域名的解析。修改 dnsmasq 的配置文件添加：
+ 在 OpenWrt 下的应用主要是作为 dnsmasq 的上游 DNS 解析器，主要承担被污染域名或者绝大部分国外域名的解析。根据自己的需求和实际修改 dnsmasq 的配置文件 `/etc/dnsmasq.conf` 如下：
 
  ```
  no-resolv                 /* 此处防止获取到ISP DNS从而干扰解析 */
+ no-poll                   /* 此处取消对 resolv.conf 的轮询，用于配合 no-resolv */
+ domain-needed             /* 此处限制非域名的DNS转发请求 */
+ no-negcache               /* 此处取消对不存在域名的缓存 */
  server=192.168.1.1#1053   /* 此处为网关IP地址，尽量不要使用 127.0.0.1；后面是监听端口 */
  all-servers               /* 如果配置了多个上游DNS并且确保均不受污染，可开启此项加速解析 */
+ cache-size=10000          /* 此处加大 dnsmasq 的内置缓存条数，默认值为 150,一般最大值为 10000 */
  ```
 
  对于国内域名解析，不推荐使用本程序，建议搭配 [dnsmasq-china-list][3] 项目使用可获得较好效果。  
