@@ -8,7 +8,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcap-dnsproxy
 PKG_VERSION:=0.4.5
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/chengr28/Pcap_DNSProxy.git
@@ -35,7 +35,6 @@ CMAKE_OPTIONS += \
 
 # Port 53 leads to dnsmasq startup failure.
 define Package/pcap-dnsproxy/config
-	if PACKAGE_pcap-dnsproxy
 	config PACKAGE_pcap-dnsproxy_libpcap
 		bool "Build with libpcap support.(Strongly recommended)"
 		default y
@@ -88,7 +87,6 @@ define Package/pcap-dnsproxy/config
 			  Unless you know what you are doing, you
 			  should probably say N here.
 	endmenu
-	endif
 endef
 
 # Note: GCC 4.6 and 4.8 dont have complete C++11 support
