@@ -6,7 +6,7 @@ Pcap_DNSProxy for OpenWrt
 ---
 
  本项目是 [Pcap_DNSProxy][1] 运行在 OpenWrt 上的软件包  
- 当前版本: 0.4.5-2  
+ 当前版本: 0.4.5-3  
  [预编译 IPK 下载][D]  
 
 特性
@@ -14,13 +14,13 @@ Pcap_DNSProxy for OpenWrt
 
  主要参见原项目说明  
 
- - 主要可执行文件 `Pcap_DNSProxy`，可选是否附带 `KeyPairGenerator`。  
+ - 主要可执行文件 `Pcap_DNSProxy`，可选是否附带 `KeyPairGenerator`，`FileHash`。  
 
  - 可选 LibSodium 和 LibPcap 依赖，其中 LibPcap 强烈建议勾选，LibSodium 根据原项目说明自行决定是否编译。  
 
  - 监听端口预置为 1053 ，可自行修改，注意不可使用 53 作为端口，会与 dnsmasq 相冲突导致 LAN 口不能分配 IP 等。  
 
- - 可以使用 `/etc/init.d/pcap-dnsproxy flush` 来清除本程序和 OpenWrt 系统的 DNS 缓存，使用 `/etc/init.d/pcap-dnsproxy libver` 查询链接的库版本，其余的 `/etc/init.d/pcap-dnsproxy {start|stop|enable|disable}` 与其他 OpenWrt 软件包的用法无异。  
+ - 可以使用 `/etc/init.d/pcap-dnsproxy flush` 来清除本程序和 OpenWrt 系统的 DNS 缓存，使用 `/etc/init.d/pcap-dnsproxy libver` 查询链接的库版本，使用 `/etc/init.d/pcap-dnsproxy status` 查询运行状态，其余的 `/etc/init.d/pcap-dnsproxy {start|stop|enable|disable}` 与其他 OpenWrt 软件包的用法无异。  
 
 编译
 ---
