@@ -8,7 +8,7 @@ START=95
 EXTRA_COMMANDS="status flush libver"
 EXTRA_HELP=\
 "	flush	Flush DNS cache stored in Pcap_DNSProxy and DNSMasq
-	libver	Print library version linked to Pcap_DNSProxy
+	libver	Print library version Pcap_DNSProxy linked to
 	status	Show the running status of Pcap_DNSProxy"
 
 SERVICE_DAEMONIZE=1
