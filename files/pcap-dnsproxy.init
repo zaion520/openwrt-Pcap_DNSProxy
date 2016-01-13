@@ -30,13 +30,13 @@ config_foreach parse_pcap_dnsproxy 'pcap-dnsproxy'
 
 start() {
 	if [ "1" = "$ENABLED" -o "on" = "$ENABLED" -o "true" = "$ENABLED" ]; then
-		[ -f "$ERRLOG" ] && {
-			echo "Removing previous ${ERRLOG##*/}"
-			rm -f "$ERRLOG" >/dev/null 2>&1
-		}
 		[ $(ps|grep ${PROG}|grep -v grep|wc -l) -ge 1 ] && {
 			echo "Pcap_DNSProxy is already running, no need to start again"
 			exit 1
+		}
+		[ -f "$ERRLOG" ] && {
+			echo "Removing previous ${ERRLOG##*/}"
+			rm -f "$ERRLOG" >/dev/null 2>&1
 		}
 		# do NOT use daemon code inside pcap-dnsproxy, use start-stop-daemon instead
 		service_start $PROG -c $CONFDIR --disable-daemon
@@ -81,6 +81,7 @@ flush() {
 		$PROG --flush-dns
 	else
 		echo "Pcap_DNSProxy is not running, I can NOT flush DNS cache for you."
+		exit 1
 	fi
 }
 
