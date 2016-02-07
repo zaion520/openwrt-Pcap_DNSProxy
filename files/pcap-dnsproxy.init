@@ -29,7 +29,7 @@ config_foreach parse_pcap_dnsproxy 'pcap-dnsproxy'
 
 
 start() {
-	if [ "1" = "$ENABLED" -o "on" = "$ENABLED" -o "true" = "$ENABLED" ]; then
+	[ "1" = "$ENABLED" -o "on" = "$ENABLED" -o "true" = "$ENABLED" ] && {
 		[ $(ps|grep ${PROG}|grep -v grep|wc -l) -ge 1 ] && {
 			echo "Pcap_DNSProxy is already running, no need to start again"
 			exit 1
@@ -47,27 +47,27 @@ start() {
 		[ $RESULT -eq 0 -a $(ps|grep ${PROG}|grep -v grep|wc -l) -ge 1 ] && {
 			echo "Pcap_DNSProxy started successfully"
 		}
-	else
+	} || {
 		echo "Pcap_DNSProxy is disabled, please check /etc/config/pcap-dnsproxy for more info"
-	fi
+	}
 }
 
 stop() {
 	# If you can NOT terminate Pcap_DNSProxy, try 'killall' instead.
 	# e.g. killall -SIGTERM Pcap_DNSProxy
-	if [ $(ps|grep ${PROG}|grep -v grep|wc -l) -ge 1 ]; then
+	[ $(ps|grep ${PROG}|grep -v grep|wc -l) -ge 1 ] && {
 		service_stop $PROG
 		local RESULT=$?
 		sleep 1s
-		if [ $RESULT -eq 0 -a $(ps|grep ${PROG}|grep -v grep|wc -l) -eq 0 ]; then
+		[ $RESULT -eq 0 -a $(ps|grep ${PROG}|grep -v grep|wc -l) -eq 0 ] && {
 			echo "Pcap_DNSProxy terminated successfully"
-		else
+		} || {
 			echo "Failed to terminate Pcap_DNSProxy"
 			echo "Retry or use 'killall -SIG{TERM,KILL} Pcap_DNSProxy' instead"
-		fi
-	else
+		}
+	} || {
 		echo "Pcap_DNSProxy is not running, no need to terminate"
-	fi
+	}
 }
 
 restart() {
@@ -77,12 +77,12 @@ restart() {
 }
 
 flush() {
-	if [ $(ps|grep ${PROG}|grep -v grep|wc -l) -ge 1 ]; then
+	[ $(ps|grep ${PROG}|grep -v grep|wc -l) -ge 1 ] && {
 		$PROG --flush-dns
-	else
+	} || {
 		echo "Pcap_DNSProxy is not running, I can NOT flush DNS cache for you."
 		exit 1
-	fi
+	}
 }
 
 libver() {
