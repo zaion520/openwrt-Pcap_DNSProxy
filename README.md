@@ -6,7 +6,7 @@ Pcap_DNSProxy for OpenWrt
 ---
 
  本项目是 [Pcap_DNSProxy][1] 运行在 OpenWrt 上的软件包  
- 当前版本: 0.4.5.2-1  
+ 当前版本: 0.4.5.3-1  
  [预编译 IPK 下载][D]  
 
 特性
