@@ -6,7 +6,7 @@ Pcap_DNSProxy for OpenWrt
 ---
 
  本项目是 [Pcap_DNSProxy][1] 运行在 OpenWrt 上的软件包  
- 当前版本: 0.4.5.4-1  
+ 当前版本: 0.4.5.6-1  
  预编译 IPK 下载：[旧SourceForge][D1][![Download Pcap_DNSProxy for OpenWrt Dist](https://img.shields.io/sourceforge/dt/pcap-dnsproxy-for-openwrt-dist.svg)](https://sourceforge.net/projects/pcap-dnsproxy-for-openwrt-dist/files/latest/download)|[新 prebuilt-ipks 分支][D2]  
 
 特性
@@ -40,7 +40,7 @@ Pcap_DNSProxy for OpenWrt
    ./scripts/feeds update -a
    ./scripts/feeds install -a
    # 获取 Makefile
-   git clone https://github.com/wongsyrone/openwrt-Pcap_DNSProxy.git package/pcap-dnsproxy
+   git clone --depth 1 --branch master --single-branch https://github.com/wongsyrone/openwrt-Pcap_DNSProxy.git package/pcap-dnsproxy
    # 选择要编译的包 Network -> pcap-dnsproxy 并进行个人定制，或者保持默认
    # 这时根据提供的选项确认依赖已经被选中
    make menuconfig
@@ -65,7 +65,7 @@ Pcap_DNSProxy for OpenWrt
    ./scripts/feeds update -a
    ./scripts/feeds install -a
    # 获取 Makefile
-   git clone https://github.com/wongsyrone/openwrt-Pcap_DNSProxy.git package/pcap-dnsproxy
+   git clone --depth 1 --branch master --single-branch https://github.com/wongsyrone/openwrt-Pcap_DNSProxy.git package/pcap-dnsproxy
    # 首先选择目标平台以及设备型号
    # 接下来选择要编译的包 Network -> pcap-dnsproxy 并进行个人定制，或者保持默认
    make menuconfig
