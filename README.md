@@ -6,7 +6,7 @@ Pcap_DNSProxy for OpenWrt/LEDE
 ---
 
  本项目是 [Pcap_DNSProxy][1] 运行在 OpenWrt/LEDE 上的软件包  
- 当前版本: 0.4.7-1  
+ 当前版本: 0.4.7.2-1  
  预编译 IPK 下载：[旧SourceForge][D1][![Download Pcap_DNSProxy for OpenWrt Dist](https://img.shields.io/sourceforge/dt/pcap-dnsproxy-for-openwrt-dist.svg)](https://sourceforge.net/projects/pcap-dnsproxy-for-openwrt-dist/files/latest/download)|[新 prebuilt-ipks 分支][D2]  
 
 特性
@@ -87,6 +87,7 @@ Pcap_DNSProxy for OpenWrt/LEDE
  5. 如果下载的 SDK 不能编译本项目，首先尝试手动编译 SDK，一般都可以解决问题了；否则尝试从 OpenWrt/LEDE 的代码树编译。  
  6. 自行编译可以尝试高级编译选项，详情参照Makefile内容。  
  7. 从 0.4.6.5 开始，为了控制 IPK 体积， 不再附带 WhiteList（中国域名列表），如果需要可以在原项目下载。  
+ 8. 如果使用 OpenWrt CC 及以下版本编译 libsodium 时，uClibc库需要添加`--without-pthreads`到`CONFIGURE_ARGS`，[参见这里的讨论][4]，musl-libc则不需要。
 
 配置
 ---
@@ -124,6 +125,7 @@ Pcap_DNSProxy for OpenWrt/LEDE
   [1]: https://github.com/chengr28/Pcap_DNSProxy
   [2]: https://github.com/chengr28/Pcap_DNSProxy/tree/master/Documents
   [3]: https://github.com/felixonmars/dnsmasq-china-list
+  [4]: https://github.com/openwrt/packages/pull/3107
   [D1]: https://sourceforge.net/projects/pcap-dnsproxy-for-openwrt-dist/files/
   [D2]: https://github.com/wongsyrone/openwrt-Pcap_DNSProxy/tree/prebuilt-ipks
   [S]: http://wiki.openwrt.org/doc/howto/obtain.firmware.sdk
