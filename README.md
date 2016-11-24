@@ -6,7 +6,7 @@ Pcap_DNSProxy for OpenWrt/LEDE
 ---
 
  本项目是 [Pcap_DNSProxy][1] 运行在 OpenWrt/LEDE 上的软件包  
- 当前版本: 0.4.7.8-2  
+ 当前版本: 0.4.8.0-1  
  预编译 IPK 下载：[旧SourceForge][D1][![Download Pcap_DNSProxy for OpenWrt Dist](https://img.shields.io/sourceforge/dt/pcap-dnsproxy-for-openwrt-dist.svg)](https://sourceforge.net/projects/pcap-dnsproxy-for-openwrt-dist/files/latest/download)|[新 prebuilt-ipks 分支][D2]  
 
 特性
