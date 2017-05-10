@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015-2016 wongsyrone
+# Copyright (C) 2015-2017 wongsyrone
 #
 # This is free software, licensed under the GNU General Public License v3.
 # See /LICENSE for more information.
@@ -7,13 +7,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pcap-dnsproxy
-PKG_VERSION:=0.4.8.6
+PKG_VERSION:=0.4.8.7
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/chengr28/Pcap_DNSProxy.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=055a4cb0264cf8d694e809f2d0b1f9498bead163
+PKG_SOURCE_VERSION:=c42865d1d2f397c5279ae923e343952debb818cb
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 CMAKE_INSTALL:=1
 
@@ -35,6 +35,8 @@ CMAKE_OPTIONS += \
 
 # Port 53 leads to dnsmasq startup failure.
 define Package/pcap-dnsproxy/config
+if PACKAGE_pcap-dnsproxy
+
 	config PACKAGE_pcap-dnsproxy_libpcap
 		bool "Build with libpcap support.(Strongly recommended)"
 		default y
@@ -79,6 +81,7 @@ define Package/pcap-dnsproxy/config
 
 		  Unless you know what you are doing, you
 		  should probably say N here.
+endif
 endef
 
 # Note: GCC 4.6 and 4.8 dont have complete C++11 support
