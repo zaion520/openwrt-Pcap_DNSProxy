@@ -165,6 +165,10 @@ define Package/pcap-dnsproxy/install
 	$(SED) 's,Listen Port = 53,Listen Port = $(CONFIG_PCAP_DNSPROXY_LISTENPORT),g'    $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/Config.ini
 	$(SED) 's,Log Maximum Size = 8MB,Log Maximum Size = 50KB,g'                       $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/Config.ini
 	$(SED) 's,Operation Mode = Private,Operation Mode = Server,g'                     $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/Config.ini
+	$(SED) 's,Listen Protocol = IPv6 + IPv4 + TCP + UDP,Listen Protocol = IPv4 + TCP + UDP,g'                     $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/Config.ini
+	$(SED) 's,Outgoing Protocol = IPv4 + UDP,Outgoing Protocol = IPv4 + TCP,g'                     $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/Config.ini
+	$(SED) 's,IPv4 Main DNS Address = 8.8.4.4:53,IPv4 Main DNS Address = 8.8.8.8:53,g'                     $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/Config.ini
+	$(SED) 's,IPv4 Alternate DNS Address = 8.8.8.8:53|208.67.220.220:443|208.67.222.222:5353,IPv4 Alternate DNS Address = 8.8.4.4:53|208.67.220.220:443|208.67.222.222:5353,g'                     $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/Config.ini
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/Config.ini $(1)/etc/pcap-dnsproxy/Config.conf
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/Hosts.ini $(1)/etc/pcap-dnsproxy/Hosts.conf
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/Source/Auxiliary/ExampleConfig/IPFilter.ini $(1)/etc/pcap-dnsproxy/IPFilter.conf
